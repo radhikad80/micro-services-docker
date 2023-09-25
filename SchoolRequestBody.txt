@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Bright Riders School",
+        "email": "bright-riders@yahoo.com"
+    },
+    {
+        "name": "CGR School",
+        "email": "cgr-school@gmail.com"
+    },
+    {
+        "name": "RCM School",
+        "email": "rcm-school@hotmail.com"
+    }
+]

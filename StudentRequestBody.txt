@@ -1,0 +1,30 @@
+{
+    "firstname": "Jahnavi",
+    "lastname": "S",
+    "email": "janu@gmail.com",
+    "schoolId": 2
+}
+{
+    "firstname": "Vaishnavi",
+    "lastname": "S",
+    "email": "vaishu@gmail.com",
+    "schoolId": 2
+}
+{
+    "firstname": "Kirthi",
+    "lastname": "V",
+    "email": "kirthi@yahoo.com",
+    "schoolId": 1
+}
+{
+    "firstname": "Kundana",
+    "lastname": "D",
+    "email": "kundana@yahoo.com",
+    "schoolId": 1
+}
+{
+    "firstname": "Kaustubh",
+    "lastname": "D",
+    "email": "kaustubh@yahoo.com",
+    "schoolId": 1
+}

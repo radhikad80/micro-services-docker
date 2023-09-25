@@ -1,0 +1,3 @@
+- To know the IP Address of the container
+    docker inspect <container-id> | Select-String -Pattern "IPAddress"
+    docker inspect e5ebf20586a7 | Select-String -Pattern "IPAddress"

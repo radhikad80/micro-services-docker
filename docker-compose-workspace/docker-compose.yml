@@ -1,0 +1,62 @@
+version: "3"
+volumes:
+  education_data: {}
+services:
+  eureka-discovery-service:
+    image: radhika-eureka-discovery-server
+    ports:
+      - "8761:8761"
+    networks:
+      - test-network
+
+  gateway-service:
+      image: radhika-education-gateway
+      environment:
+        - EUREKA_SERVER=http://eureka-discovery-service:8761/eureka
+        - ZIPKIN_SERVER=http://zipkin:9411/
+      ports:
+        - "8222:8222"
+      depends-on:
+        - eureka-discovery-service
+        - radhika-school-restapi
+        - radhika-student-restapi
+      networks:
+        - test-network
+
+    school-service:
+        image: radhika-school-restapi
+        environment:
+          - EUREKA_SERVER=http://eureka-discovery-service:8761/eureka
+          - ZIPKIN_SERVER=http://zipkin:9411/
+        ports:
+          - "8070:8070"
+        depends-on:
+          - eureka-discovery-service
+        networks:
+          - test-network
+
+    student-service:
+            image: radhika-student-restapi
+            environment:
+              - EUREKA_SERVER=http://eureka-discovery-service:8761/eureka
+              - ZIPKIN_SERVER=http://zipkin:9411/
+            ports:
+              - "8090:8090"
+            depends-on:
+              - eureka-discovery-service
+            networks:
+              - test-network
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - zipkin
+
+networks:
+  zipkin:
+    driver: bridge
+  test-network:
+      driver: bridge

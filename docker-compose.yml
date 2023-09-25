@@ -1,0 +1,55 @@
+version: "3"
+services:
+  discovery:
+    image: springcloud/eureka:latest
+    ports:
+      - "8761:8761"
+    expose:
+      - "8761"
+    networks:
+      - test-network
+
+  student-service:
+    image: student-image
+    environment:
+      - EUREKA_SERVER=http://localhost:8761
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/students
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+    ports:
+      - "8090:8090"
+    expose:
+      - "8090"
+    depends_on:
+      - discovery
+      - postgresql
+    networks:
+      - test-network
+
+  postgresql:
+    container_name: postgresql
+    image: postgres:15.0-alpine
+    environment:
+      - POSTGRES_DB=students
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    networks:
+      - test-network
+    restart: unless-stopped
+#
+#  zipkin:
+#    container_name: zipkin
+#    image: openzipkin/zipkin
+#    ports:
+#      - "9411:9411"
+#    networks:
+#      - test-network
+
+networks:
+  test-network:
+      driver: bridge
